@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Joke from "./Joke";
 import "./JokeList.css";
+import ClassJokes from "./ClassJokes"
 
-function JokeList({ numJokesToGet = 10 }) {
+function JokeList({ numJokesToGet = 3 }) {
   const [jokes, setJokes] = useState([]);
 
   /* get jokes if there are no jokes */
@@ -22,6 +23,7 @@ function JokeList({ numJokesToGet = 10 }) {
           if (!seenJokes.has(jokeObj.id)) {
             seenJokes.add(jokeObj.id);
             j.push({ ...jokeObj, votes: 0 });
+            console.log("pushing", jokeObj)
           } else {
             console.error("duplicate found!");
           }
@@ -31,12 +33,10 @@ function JokeList({ numJokesToGet = 10 }) {
         console.log(e);
       }
     }
-
     if (jokes.length === 0) getJokes();
   }, [jokes, numJokesToGet]);
-
   /* empty joke list and then call getJokes */
-
+  console.log(jokes)
   function generateNewJokes() {
     setJokes([]);
   }
@@ -63,6 +63,8 @@ function JokeList({ numJokesToGet = 10 }) {
         {sortedJokes.map(j => (
           <Joke text={j.joke} key={j.id} id={j.id} votes={j.votes} vote={vote} />
         ))}
+         <hr />
+          <ClassJokes text="laslslsal" jokesToGet={5}/> 
       </div>
     );
   }
