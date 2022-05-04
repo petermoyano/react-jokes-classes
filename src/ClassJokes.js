@@ -49,11 +49,8 @@ class ClassJokes extends React.Component {
     
 render(){
     return <div>
-        <h1>Test</h1>
-        <ClassSingleJoke t="1" />
-        <ClassSingleJoke t="2" />
-        <ClassSingleJoke t="3" />
-
+        <h1>Same thing but with classes</h1>
+        {this.state.jokes.map(j => (<ClassSingleJoke text={j.joke} key={j.id}/>))}
     </div>
 }
 }

@@ -3,10 +3,11 @@ import React from "react";
 class ClassSingleJoke extends React.Component{
     constructor(props){
         super(props);
-        this.t = this.props.t
+        this.joke = this.props.text;
     }
+    
     render(){
-        return <h2>Another smaller test {this.t}</h2>
+        return <div>{this.joke}</div>
     }
     
 }

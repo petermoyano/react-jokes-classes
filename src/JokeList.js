@@ -36,7 +36,6 @@ function JokeList({ numJokesToGet = 3 }) {
     if (jokes.length === 0) getJokes();
   }, [jokes, numJokesToGet]);
   /* empty joke list and then call getJokes */
-  console.log(jokes)
   function generateNewJokes() {
     setJokes([]);
   }
@@ -64,7 +63,7 @@ function JokeList({ numJokesToGet = 3 }) {
           <Joke text={j.joke} key={j.id} id={j.id} votes={j.votes} vote={vote} />
         ))}
          <hr />
-          <ClassJokes text="laslslsal" jokesToGet={5}/> 
+          <ClassJokes jokesToGet={2}/> 
       </div>
     );
   }
