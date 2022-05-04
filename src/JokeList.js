@@ -61,8 +61,8 @@ function JokeList({ numJokesToGet = 3 }) {
         {sortedJokes.map(j => (
           <Joke text={j.joke} key={j.id} id={j.id} votes={j.votes} vote={vote} />
         ))}
-         <hr />
-          <ClassJokes jokesToGet={2}/> 
+         <hr/>
+          
       </div>
     );
   }
