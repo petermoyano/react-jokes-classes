@@ -15,7 +15,6 @@ class ClassJokes extends React.Component {
     }
     componentDidMount() {
         if (this.state.jokes.length < this.props.jokesToGet) {
-            console.log("Running getJokes!")
             this.getJokes();
         }
     }
@@ -24,6 +23,12 @@ class ClassJokes extends React.Component {
             this.getJokes();
         }
     }
+
+    vote(id, delta) {
+        this.setState(st => ({
+          jokes: st.jokes.map(j => j.id === id ? { ...j, votes: j.votes + delta } : j)
+        }));
+      }
 
     async getJokes() {
         let j = [...this.state.jokes];
@@ -35,7 +40,6 @@ class ClassJokes extends React.Component {
                 if (!seenJokes.has(jokeObj.id)) {
                     seenJokes.add(jokeObj.id);
                     j.push({ ...jokeObj, votes: 0 });
-                    console.log("pushing", jokeObj)
                 } else {
                     console.error("duplicate found!");
                 }
@@ -50,7 +54,7 @@ class ClassJokes extends React.Component {
 render(){
     return <div>
         <h1>Same thing but with classes</h1>
-        {this.state.jokes.map(j => (<ClassSingleJoke text={j.joke} key={j.id}/>))}
+        {this.state.jokes.map(j => (<ClassSingleJoke text={j.joke} key={j.id} votes={j.votes} vote={j.vote}/>))}
     </div>
 }
 }

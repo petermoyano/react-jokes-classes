@@ -23,7 +23,6 @@ function JokeList({ numJokesToGet = 3 }) {
           if (!seenJokes.has(jokeObj.id)) {
             seenJokes.add(jokeObj.id);
             j.push({ ...jokeObj, votes: 0 });
-            console.log("pushing", jokeObj)
           } else {
             console.error("duplicate found!");
           }
