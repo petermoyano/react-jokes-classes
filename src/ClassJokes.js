@@ -1,7 +1,7 @@
 import React from "react";
 import ClassSingleJoke from "./ClassSingleJoke";
 import axios from "axios";
-import {flushSync} from "react-dom"
+import { flushSync } from "react-dom"
 
 class ClassJokes extends React.Component {
     static defaultProps = {
@@ -12,7 +12,7 @@ class ClassJokes extends React.Component {
         super(props);
         this.state = { jokes: [] }; // initial state
         this.vote = this.vote.bind(this);
-        /* this.generateNewJokes = this.generateNewJokes.bind(this); */ //otherwise this will be undefined!
+        this.generateNewJokes = this.generateNewJokes.bind(this); //otherwise this will be undefined!
 
     }
     componentDidMount() {
@@ -28,10 +28,14 @@ class ClassJokes extends React.Component {
 
     vote(id, delta) {
         flushSync(() =>
-        this.setState(st => ({
-          jokes: st.jokes.map(j => j.id === id ? { ...j, votes: j.votes + delta } : j)
-        })));
-      }
+            this.setState(st => ({
+                jokes: st.jokes.map(j => j.id === id ? { ...j, votes: j.votes + delta } : j)
+            })));
+    }
+
+    generateNewJokes() {
+        this.setState(st => ({ jokes: [] }))
+    }
 
     async getJokes() {
         let j = [...this.state.jokes];
@@ -47,21 +51,24 @@ class ClassJokes extends React.Component {
                     console.error("duplicate found!");
                 }
             }
-            this.setState({jokes: j});
+            this.setState({ jokes: j });
             console.log(this.state.jokes)
         } catch (e) {
             console.log(e);
         }
     }
-    
-    
-render(){
-    return <div>
-        <h1>Same thing but with classes</h1>
-        {this.state.jokes.map(j => (
-        <ClassSingleJoke text={j.joke} key={j.id} votes={j.votes} vote={this.vote} id={j.id}/>))}
-    </div>
-}
+
+
+    render() {
+        return <div>
+            <button className="JokeList-getmore" onClick={this.generateNewJokes}>
+                Get New Class Jokes
+            </button>
+            <h1>Same thing but with classes</h1>
+            {this.state.jokes.map(j => (
+                <ClassSingleJoke text={j.joke} key={j.id} votes={j.votes} vote={this.vote} id={j.id} />))}
+        </div>
+    }
 }
 
 export default ClassJokes;
